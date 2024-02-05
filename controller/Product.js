@@ -12,7 +12,6 @@ import rimraf from "rimraf";
 // Create Product --ADMIN
 export const createProduct = catchAsyncErrors(async (req, res, next) => {
   let { title, description, price, catigory, stock, tags, images } = req.body;
-  // console.log(req.body)
   tags = tags.split(",");
   images = req.files["images[]"];
   const slugForm = CreateSlug(title);
@@ -22,7 +21,6 @@ export const createProduct = catchAsyncErrors(async (req, res, next) => {
   const pathOfFolder = path.join(__dirname, `../public/${slugForm}`);
   if (!fs.existsSync(pathOfFolder)) {
     fs.mkdirSync(pathOfFolder);
-    // console.log("Crating", pathOfFolder)
   }
   images.forEach((item) => {
     item.mv(path.join(pathOfFolder, item.name), (err) => {
@@ -33,7 +31,6 @@ export const createProduct = catchAsyncErrors(async (req, res, next) => {
     imagesName.push(path.join(slugForm, item.name));
   });
   let createdBy = req.user._id;
-  // console.log(catigory)
   const product = await Product.create({
     title,
     slug: slugForm,
@@ -104,12 +101,10 @@ export const deleteProduct = catchAsyncErrors(async (req, res, next) => {
       }
     });
     fs.rmdirSync(pathOfFolder);
-    console.log("deleting", pathOfFolder);
   }
   if (!product) {
     return next(new ErrorHandler("Product Not Found", 404));
   }
-  // console.log(product);
   res.status(200).json({
     success: true,
     message: "Product Deleted Successfully",
@@ -119,8 +114,6 @@ export const deleteProduct = catchAsyncErrors(async (req, res, next) => {
 // Create new Review and Update the review
 export const createProductReview = catchAsyncErrors(async (req, res, next) => {
   const { userRating, comment, productId } = req.body;
-  // console.log(req.body);
-  // console.log(req.user);
   const review = {
     user: req.user._id,
     name: req.user.firstName + " " + req.user.lastName,
@@ -211,7 +204,6 @@ export const relatedProducts = catchAsyncErrors(async (req, res, next) => {
   const { tags: tagsData } = product;
   const products = await Product.find();
   const relatedProd = [];
-  console.log(tagsData, "SHOWING THE DATA HERE!");
   products.forEach((productItem) => {
     const tagCount = productItem.tags.reduce((count, tag) => {
       if (tagsData.includes(tag)) {
@@ -229,7 +221,6 @@ export const relatedProducts = catchAsyncErrors(async (req, res, next) => {
     }
   });
 
-  console.log(relatedProd);
   res.json({
     success: true,
     data: relatedProd,

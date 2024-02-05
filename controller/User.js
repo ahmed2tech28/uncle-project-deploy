@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import catchAsyncErrors from "../utils/catchAsyncErrors.js";
 import ErrorHandler from "../utils/Errorhandler.js";
 
-import {verificationEmail} from "../helper/SendMail.js";
+import { verificationEmail } from "../helper/SendMail.js";
 
 export const registerUser = catchAsyncErrors(async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
@@ -94,8 +94,7 @@ export const loginUser = catchAsyncErrors(async (req, res) => {
 });
 
 export const verifyUser = catchAsyncErrors(async (req, res, next) => {
-  // console.log(req.cookies)
-  const { token } = req.cookies
+  const { token } = req.cookies;
   jwt.verify(token, "your_secret_key", async (err, deco) => {
     if (err) {
       return res.json({

@@ -8,7 +8,6 @@ export const createFaqs = catchAsyncErrors(async (req, res, next) => {
   const { question, answer } = req.body;
 
   const existingFAQs = await FAQsModel.findOne({ question });
-  console.log(existingFAQs);
   if (existingFAQs) {
     throw new ErrorHandler(
       "This FAQs is already registered with some one",
@@ -23,7 +22,6 @@ export const createFaqs = catchAsyncErrors(async (req, res, next) => {
 // Show FAQs
 export const getFaqs = catchAsyncErrors(async (req, res, next) => {
   const contacts = await FAQsModel.find();
-  // console.log(contacts)
   res.json(contacts);
 });
 
@@ -39,12 +37,8 @@ export const getSingleFaqs = catchAsyncErrors(async (req, res, next) => {
 // Update FAQs
 export const updateFaqs = catchAsyncErrors(async (req, res, next) => {
   let singleFAQs = await FAQsModel.findById(req.params.id);
-  // console.log(singleFAQs)
   if (!singleFAQs) {
-    throw new ErrorHandler(
-      "Not Founded",
-      400
-    );
+    throw new ErrorHandler("Not Founded", 400);
   }
 
   singleFAQs = await FAQsModel.findByIdAndUpdate(req.params.id, req.body, {

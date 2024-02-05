@@ -32,7 +32,6 @@ export const getSingleContact = catchAsyncErrors(async (req, res, next) => {
 // Update Contact
 export const updateContact = catchAsyncErrors(async (req, res, next) => {
   let singleContact = await ContactModel.findById(req.params.id);
-  // console.log(singleContact)
   if (!singleContact) {
     throw new ErrorHandler("Not Founded", 400);
   }
