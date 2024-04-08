@@ -1,0 +1,46 @@
+{
+  "name": "orbiologic",
+  "version": "1.0.0",
+  "description": "this is the orbiologic website",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "both": "concurrently \"npm run start-express\" \"npm run start-react\"  \"npm run tail\"",
+    "start-react": "cd ../front && npm run dev",
+    "start-express": "nodemon index.js",
+    "tail":"cd ../front && npm run tail"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmed2tech28/SajjadUncle-Poultry-Project.git"
+  },
+  "author": "Ahmed, Raees, Zain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmed2tech28/SajjadUncle-Poultry-Project/issues"
+  },
+  "homepage": "https://github.com/ahmed2tech28/SajjadUncle-Poultry-Project#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.3",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.6.3",
+    "nodemailer": "^6.9.7",
+    "nodemon": "^3.0.1",
+    "rimraf": "^3.0.2",
+    "slugify": "^1.6.6",
+    "validator": "^13.11.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
