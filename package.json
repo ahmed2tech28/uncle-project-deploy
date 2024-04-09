@@ -5,13 +5,13 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nodemon server.js",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "both": "concurrently \"npm run start-express\" \"npm run start-react\"  \"npm run tail\"",
     "start-react": "cd ../front && npm run dev",
     "start-express": "nodemon index.js",
-    "tail":"cd ../front && npm run tail"
+    "tail": "cd ../front && npm run tail"
   },
   "repository": {
     "type": "git",
