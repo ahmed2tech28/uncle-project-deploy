@@ -13,6 +13,7 @@ import rimraf from "rimraf";
 export const createProduct = catchAsyncErrors(async (req, res, next) => {
   let { title, description, price, catigory, stock, tags, images } = req.body;
   // console.log(req.body)
+  // console.log(req.files);
   tags = tags.split(",");
   images = req.files["images[]"];
   const slugForm = CreateSlug(title);
@@ -24,6 +25,7 @@ export const createProduct = catchAsyncErrors(async (req, res, next) => {
     fs.mkdirSync(pathOfFolder);
     // console.log("Crating", pathOfFolder)
   }
+  if (typeof images != "array") images = [images];
   images.forEach((item) => {
     item.mv(path.join(pathOfFolder, item.name), (err) => {
       if (err) {
