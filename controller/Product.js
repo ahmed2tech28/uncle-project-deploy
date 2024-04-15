@@ -31,12 +31,12 @@ export const createProduct = catchAsyncErrors(async (req, res, next) => {
   }
   images.forEach((item, i) => {
     let ext = item.name.split(".")[item.name.split(".").length - 1];
-    item.mv(path.join(pathOfFolder, `${i}${ext}`), (err) => {
+    item.mv(path.join(pathOfFolder, `${i}.${ext}`), (err) => {
       if (err) {
         res.json(err);
       }
     });
-    imagesName.push(path.join(slugForm, `${i}${ext}`));
+    imagesName.push(path.join(slugForm, `${i}.${ext}`));
   });
   let createdBy = req.user._id;
   // console.log(catigory)
