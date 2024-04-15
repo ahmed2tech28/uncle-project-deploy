@@ -8,6 +8,7 @@ import fs from "fs";
 import path from "path";
 import slugify from "slugify";
 import rimraf from "rimraf";
+import { type } from "os";
 
 // Create Product --ADMIN
 export const createProduct = catchAsyncErrors(async (req, res, next) => {
@@ -20,19 +21,22 @@ export const createProduct = catchAsyncErrors(async (req, res, next) => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
   let imagesName = [];
+  if (!Array.isArray(images)) {
+    images = [images];
+  }
   const pathOfFolder = path.join(__dirname, `../public/${slugForm}`);
   if (!fs.existsSync(pathOfFolder)) {
     fs.mkdirSync(pathOfFolder);
     // console.log("Crating", pathOfFolder)
   }
-  if (typeof images != "array") images = [images];
-  images.forEach((item) => {
-    item.mv(path.join(pathOfFolder, item.name), (err) => {
+  images.forEach((item, i) => {
+    let ext = item.name.split(".")[item.name.split(".").length - 1];
+    item.mv(path.join(pathOfFolder, `${i}${ext}`), (err) => {
       if (err) {
         res.json(err);
       }
     });
-    imagesName.push(path.join(slugForm, item.name));
+    imagesName.push(path.join(slugForm, `${i}${ext}`));
   });
   let createdBy = req.user._id;
   // console.log(catigory)
